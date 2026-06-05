@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0F0A1E;
+  --foreground: #F7F5FF;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-display {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-mono {
+  font-family: 'Space Mono', 'Courier New', monospace;
+}
+
+/* Glass morphism utility */
+.glass {
+  background: rgba(45, 27, 105, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(155, 127, 232, 0.15);
+}
+
+.glass-light {
+  background: rgba(247, 245, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(155, 127, 232, 0.1);
+}
+
+/* Score ring animation */
+@keyframes ring-fill {
+  from {
+    stroke-dashoffset: 283;
+  }
+  to {
+    stroke-dashoffset: var(--target-offset, 0);
+  }
+}
+
+.ring-animate {
+  animation: ring-fill 1.2s ease-out forwards;
+}
+
+/* Bar fill animation */
+@keyframes bar-fill {
+  from { width: 0%; }
+  to { width: var(--target-width, 0%); }
+}
+
+.bar-animate {
+  animation: bar-fill 0.8s ease-out forwards;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(45, 27, 105, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(91, 63, 191, 0.5);
+  border-radius: 2px;
+}
+
+/* Bottom nav safe area */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 16px);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
