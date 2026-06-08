@@ -212,12 +212,12 @@ export function getGrade(score: number): {
   label: string;
   color: string;
 } {
-  if (score >= 85) return { grade: "A+", label: "Exceptional", color: "#2DB87A" };
-  if (score >= 70) return { grade: "A", label: "Excellent", color: "#52C994" };
-  if (score >= 55) return { grade: "B", label: "Good", color: "#E8C733" };
-  if (score >= 40) return { grade: "C", label: "Fair", color: "#E8A733" };
-  if (score >= 25) return { grade: "D", label: "Poor", color: "#E87033" };
-  return { grade: "F", label: "Avoid", color: "#E84433" };
+  if (score >= 85) return { grade: "A+", label: "Exceptional", color: "#6B8C5F" };
+  if (score >= 70) return { grade: "A",  label: "Excellent",   color: "#7FA870" };
+  if (score >= 55) return { grade: "B",  label: "Good",        color: "#C4974A" };
+  if (score >= 40) return { grade: "C",  label: "Fair",        color: "#B8863A" };
+  if (score >= 25) return { grade: "D",  label: "Poor",        color: "#A0513A" };
+  return                  { grade: "F",  label: "Avoid",       color: "#7A3020" };
 }
 
 // ── Flag detectors ────────────────────────────────────────────────────────

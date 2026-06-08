@@ -3,125 +3,88 @@
 import Link from "next/link";
 import BottomNav from "@/components/BottomNav";
 
-const STATS = [
-  { label: "Total Scans", value: "47", icon: "📷" },
-  { label: "Avg Score", value: "71", icon: "⭐" },
-  { label: "Items Saved", value: "4", icon: "👗" },
-];
-
 export default function ProfilePage() {
   return (
-    <div className="min-h-screen bg-[#0F0A1E] pb-28">
-      <div className="max-w-2xl mx-auto px-4">
-        {/* Header */}
-        <div className="pt-12 pb-6">
-          <h1 className="text-2xl font-display font-bold text-[#F7F5FF]">
-            Profile
-          </h1>
-        </div>
+    <div className="min-h-screen pb-28" style={{ background: "var(--bg-deep)" }}>
+      <div className="px-6 pt-12 pb-6" style={{ borderBottom: "1px solid var(--border)" }}>
+        <p className="label mb-1">Account</p>
+        <h1 className="font-display text-2xl" style={{ color: "var(--text-cream)", fontWeight: 300 }}>Profile</h1>
+      </div>
 
-        {/* User card */}
-        <div className="glass rounded-2xl p-5 mb-6 flex items-center gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#5B3FBF] to-[#2D1B69] flex items-center justify-center text-2xl shadow-lg shadow-[rgba(91,63,191,0.3)]">
-            👤
+      <div className="max-w-xl mx-auto px-6">
+        {/* Auth */}
+        <div className="py-8" style={{ borderBottom: "1px solid var(--border)" }}>
+          <p className="text-sm font-body mb-1" style={{ color: "var(--text-warm)" }}>Not signed in</p>
+          <p className="text-xs font-body mb-6" style={{ color: "var(--text-muted)" }}>
+            Sign in to sync your wardrobe across devices and access your scan history.
+          </p>
+          <div className="flex flex-col gap-3">
+            <button className="w-full py-3.5 text-xs font-body transition-colors"
+              style={{ background: "var(--bg-raised)", border: "1px solid rgba(180,160,110,0.3)", borderRadius: 2, color: "var(--text-cream)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+              Sign in with Email
+            </button>
+            <button className="w-full py-3.5 text-xs font-body transition-colors"
+              style={{ border: "1px solid var(--border)", borderRadius: 2, color: "var(--text-warm)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+              Continue with Google
+            </button>
           </div>
-          <div className="flex-1">
-            <p className="text-sm font-body font-semibold text-[rgba(155,127,232,0.5)]">
-              Not signed in
-            </p>
-            <p className="text-xs font-body text-[rgba(155,127,232,0.4)] mt-1">
-              Sign in to sync your wardrobe across devices
-            </p>
-          </div>
-        </div>
-
-        {/* Auth buttons */}
-        <div className="flex flex-col gap-3 mb-6">
-          <button className="w-full py-3 rounded-xl bg-gradient-to-r from-[#5B3FBF] to-[#2D1B69] text-sm font-body font-medium text-white shadow-lg shadow-[rgba(91,63,191,0.3)] hover:shadow-[rgba(91,63,191,0.5)] transition-all">
-            Sign in with Email
-          </button>
-          <button className="w-full py-3 rounded-xl border border-[rgba(155,127,232,0.25)] text-sm font-body text-[#C8B8FF] hover:bg-[rgba(155,127,232,0.1)] transition-colors flex items-center justify-center gap-2">
-            <span>G</span>
-            Sign in with Google
-          </button>
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-3 mb-6">
-          {STATS.map(({ label, value, icon }) => (
-            <div
-              key={label}
-              className="glass rounded-xl p-3 flex flex-col items-center gap-1"
-            >
-              <span className="text-xl">{icon}</span>
-              <p className="text-lg font-mono font-bold text-[#9B7FE8]">{value}</p>
-              <p className="text-[9px] font-body text-[rgba(155,127,232,0.5)] uppercase tracking-wider text-center leading-tight">
-                {label}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        {/* Subscription card */}
-        <div className="rounded-2xl p-5 bg-gradient-to-br from-[rgba(45,27,105,0.4)] to-[rgba(91,63,191,0.2)] border border-[rgba(155,127,232,0.2)] mb-6">
-          <div className="flex items-center justify-between mb-3">
-            <div>
-              <p className="text-xs font-body text-[#9B7FE8]">Current plan</p>
-              <p className="text-base font-display font-bold text-[#F7F5FF]">
-                Indigo Free
-              </p>
-            </div>
-            <span className="px-2 py-1 rounded-full bg-[rgba(155,127,232,0.1)] text-xs font-body text-[#9B7FE8] border border-[rgba(155,127,232,0.2)]">
-              Free
-            </span>
-          </div>
-          <div className="flex flex-col gap-1.5 mb-4">
+        <div className="py-8" style={{ borderBottom: "1px solid var(--border)" }}>
+          <p className="label mb-5">Activity</p>
+          <div className="grid grid-cols-3 gap-4">
             {[
-              { label: "Scans per day", free: "10", plus: "Unlimited" },
-              { label: "Wardrobe items", free: "20", plus: "Unlimited" },
-              { label: "Full flag explanations", free: "—", plus: "✓" },
-              { label: "Clean alternatives", free: "—", plus: "✓" },
-            ].map(({ label, free, plus }) => (
-              <div key={label} className="flex items-center justify-between text-xs font-body">
-                <span className="text-[#9B7FE8]">{label}</span>
-                <span className="text-[rgba(155,127,232,0.5)]">
-                  {free} <span className="mx-1 opacity-30">→</span>
-                  <span className="text-[#2DB87A]">{plus}</span>
-                </span>
+              { value: "47", label: "Scans" },
+              { value: "71", label: "Avg Score" },
+              { value: "4",  label: "Saved" },
+            ].map(({ value, label }) => (
+              <div key={label}>
+                <p className="font-display text-3xl italic" style={{ color: "var(--text-cream)" }}>{value}</p>
+                <p className="label mt-1">{label}</p>
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Plan */}
+        <div className="py-8" style={{ borderBottom: "1px solid var(--border)" }}>
+          <div className="flex items-center justify-between mb-4">
+            <p className="label">Current Plan</p>
+            <span className="text-xs font-body px-2.5 py-1"
+              style={{ background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: 2, color: "var(--text-warm)" }}>
+              Free
+            </span>
+          </div>
+          <p className="text-sm font-body mb-6" style={{ color: "var(--text-warm)" }}>10 scans/day · 20 wardrobe items</p>
           <Link href="/upgrade">
-            <button className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#5B3FBF] to-[#2D1B69] text-sm font-body font-medium text-white shadow-lg shadow-[rgba(91,63,191,0.3)] hover:shadow-[rgba(91,63,191,0.5)] transition-all">
-              Upgrade to Indigo+ — $4.99/mo
+            <button className="w-full py-3 text-xs font-body"
+              style={{ background: "var(--bg-card)", border: "1px solid rgba(180,160,110,0.25)", borderRadius: 2, color: "var(--text-cream)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+              View Upgrade Options
             </button>
           </Link>
         </div>
 
-        {/* Settings list */}
-        <div className="glass rounded-2xl overflow-hidden mb-6">
+        {/* Settings */}
+        <div className="py-6">
           {[
-            { icon: "🔔", label: "Notifications" },
-            { icon: "🌐", label: "Language" },
-            { icon: "📤", label: "Export Wardrobe Report" },
-            { icon: "💬", label: "Suggest a Brand" },
-            { icon: "⭐", label: "Rate Indigo" },
-            { icon: "📄", label: "Privacy Policy" },
-            { icon: "❓", label: "Help & Support" },
-          ].map(({ icon, label }) => (
-            <button
-              key={label}
-              className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-[rgba(155,127,232,0.05)] transition-colors border-b border-[rgba(155,127,232,0.08)] last:border-b-0 text-left"
-            >
-              <span className="text-base w-6 text-center">{icon}</span>
-              <span className="text-sm font-body text-[#C8B8FF] flex-1">{label}</span>
-              <span className="text-[rgba(155,127,232,0.3)]">›</span>
+            "Notifications",
+            "Suggest a Brand",
+            "Export Wardrobe Report",
+            "Privacy Policy",
+            "Help & Support",
+          ].map((item, i, arr) => (
+            <button key={item}
+              className="w-full flex items-center justify-between py-4 text-left transition-colors"
+              style={{ borderBottom: i < arr.length - 1 ? "1px solid var(--border)" : "none" }}>
+              <span className="text-sm font-body" style={{ color: "var(--text-warm)" }}>{item}</span>
+              <span style={{ color: "var(--text-muted)" }}>›</span>
             </button>
           ))}
         </div>
 
-        <p className="text-center text-[10px] font-body text-[rgba(155,127,232,0.3)] mb-8">
-          Indigo v1.0.0 · Built on the principle that consumers deserve to know.
+        <p className="text-center text-xs font-body py-6" style={{ color: "var(--text-muted)" }}>
+          Indigo v1.0 — built for transparency in fashion
         </p>
       </div>
 

@@ -3,27 +3,16 @@
 import { useState } from "react";
 import { FIBER_LABELS, FIBER_SCORES, SYNTHETIC_FIBERS } from "@/lib/scoring/fiberScores";
 
-interface Fiber {
-  fiber: string;
-  percentage: number;
-}
+interface Fiber { fiber: string; percentage: number; }
+interface Props { fibers: Fiber[]; }
 
-interface Props {
-  fibers: Fiber[];
-}
-
-function getFiberColor(fiber: string): string {
+function fiberColor(fiber: string): string {
   if (SYNTHETIC_FIBERS.has(fiber)) {
-    const score = FIBER_SCORES[fiber] ?? 5;
-    if (score <= 4) return "#E84433";
-    if (score <= 8) return "#E87033";
-    return "#E8A733";
+    const s = FIBER_SCORES[fiber] ?? 5;
+    return s <= 4 ? "#7A3020" : s <= 8 ? "#A0513A" : "#C4974A";
   }
-  const score = FIBER_SCORES[fiber] ?? 10;
-  if (score >= 22) return "#2DB87A";
-  if (score >= 18) return "#52C994";
-  if (score >= 14) return "#E8C733";
-  return "#E8A733";
+  const s = FIBER_SCORES[fiber] ?? 10;
+  return s >= 22 ? "#6B8C5F" : s >= 18 ? "#7FA870" : s >= 14 ? "#C4974A" : "#B8863A";
 }
 
 export default function MaterialBreakdown({ fibers }: Props) {
@@ -31,69 +20,49 @@ export default function MaterialBreakdown({ fibers }: Props) {
   if (!fibers || fibers.length === 0) return null;
 
   return (
-    <div className="space-y-3">
-      {/* Bar chart visualization */}
-      <div className="flex rounded-lg overflow-hidden h-6" role="img" aria-label="Material composition">
+    <div className="space-y-4">
+      {/* Stacked bar */}
+      <div className="flex h-1.5 rounded-full overflow-hidden">
         {fibers.map((f, i) => (
-          <div
-            key={i}
-            className="relative cursor-pointer transition-opacity"
-            style={{
-              width: `${f.percentage}%`,
-              backgroundColor: getFiberColor(f.fiber),
-              opacity: active && active !== f.fiber ? 0.4 : 1,
-            }}
+          <div key={i}
+            className="transition-opacity cursor-pointer"
+            style={{ width: `${f.percentage}%`, backgroundColor: fiberColor(f.fiber), opacity: active && active !== f.fiber ? 0.3 : 1 }}
             onMouseEnter={() => setActive(f.fiber)}
-            onMouseLeave={() => setActive(null)}
-            onTouchStart={() => setActive(active === f.fiber ? null : f.fiber)}
-          />
+            onMouseLeave={() => setActive(null)} />
         ))}
       </div>
 
       {/* Legend */}
       <div className="flex flex-wrap gap-2">
         {fibers.map((f, i) => {
-          const score = FIBER_SCORES[f.fiber] ?? 10;
-          const color = getFiberColor(f.fiber);
+          const color = fiberColor(f.fiber);
           const label = FIBER_LABELS[f.fiber] ?? f.fiber;
           return (
-            <button
-              key={i}
-              className="flex items-center gap-1.5 text-xs font-body rounded-full px-3 py-1 transition-all"
+            <button key={i}
+              className="flex items-center gap-1.5 text-xs font-body px-3 py-1.5 transition-all"
               style={{
-                backgroundColor:
-                  active === f.fiber ? `${color}30` : "rgba(45,27,105,0.3)",
-                border: `1px solid ${active === f.fiber ? color : "rgba(155,127,232,0.2)"}`,
-                color: active === f.fiber ? color : "#C8B8FF",
+                background: active === f.fiber ? "rgba(180,160,110,0.1)" : "var(--bg-card)",
+                border: `1px solid ${active === f.fiber ? color : "var(--border)"}`,
+                borderRadius: 2,
+                color: active === f.fiber ? color : "var(--text-warm)",
               }}
               onMouseEnter={() => setActive(f.fiber)}
-              onMouseLeave={() => setActive(null)}
-              onClick={() => setActive(active === f.fiber ? null : f.fiber)}
-            >
-              <span
-                className="w-2 h-2 rounded-full flex-shrink-0"
-                style={{ backgroundColor: color }}
-              />
-              <span>{f.percentage}% {label}</span>
-              <span
-                className="font-mono opacity-70"
-                style={{ color }}
-              >
-                {score}/25
-              </span>
+              onMouseLeave={() => setActive(null)}>
+              <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: color }} />
+              {f.percentage}% {label}
             </button>
           );
         })}
       </div>
 
-      {/* Detail tooltip */}
       {active && (
-        <div className="rounded-xl p-3 bg-[rgba(45,27,105,0.3)] border border-[rgba(155,127,232,0.15)] text-xs font-body text-[#C8B8FF]">
-          <span className="font-semibold text-[#F7F5FF]">{FIBER_LABELS[active] ?? active}</span>{" "}
-          — Fiber score: {FIBER_SCORES[active] ?? "?"}/25.{" "}
+        <div className="px-4 py-3 text-xs font-body leading-relaxed"
+          style={{ background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: 4, color: "var(--text-warm)" }}>
+          <span style={{ color: "var(--text-cream)" }}>{FIBER_LABELS[active] ?? active}</span>
+          {" — "}fiber score {FIBER_SCORES[active] ?? "?"}/25.{" "}
           {SYNTHETIC_FIBERS.has(active)
-            ? "Synthetic fiber derived from petroleum. Sheds microplastics when washed."
-            : "Natural fiber with lower environmental impact."}
+            ? "Petroleum-derived synthetic. Sheds microplastics when washed."
+            : "Natural fibre with lower environmental footprint."}
         </div>
       )}
     </div>

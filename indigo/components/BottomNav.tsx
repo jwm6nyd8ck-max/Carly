@@ -4,47 +4,33 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const NAV_ITEMS = [
-  { href: "/", icon: "🏠", label: "Home" },
-  { href: "/scan", icon: "📷", label: "Scan" },
-  { href: "/wardrobe", icon: "👗", label: "Wardrobe" },
-  { href: "/explore", icon: "🔍", label: "Explore" },
-  { href: "/profile", icon: "👤", label: "Profile" },
+  { href: "/",         label: "Home"     },
+  { href: "/scan",     label: "Scan"     },
+  { href: "/wardrobe", label: "Wardrobe" },
+  { href: "/explore",  label: "Explore"  },
+  { href: "/profile",  label: "Profile"  },
 ];
 
 export default function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 pb-safe bg-[rgba(15,10,30,0.9)] backdrop-blur-md border-t border-[rgba(155,127,232,0.15)]">
-      <div className="max-w-md mx-auto flex items-center justify-around py-2">
-        {NAV_ITEMS.map(({ href, icon, label }) => {
+    <nav className="fixed bottom-0 left-0 right-0 z-50 pb-safe"
+      style={{ background: "rgba(24,23,15,0.96)", backdropFilter: "blur(12px)", borderTop: "1px solid rgba(180,160,110,0.12)" }}>
+      <div className="max-w-md mx-auto flex items-center justify-around py-3">
+        {NAV_ITEMS.map(({ href, label }) => {
           const active = pathname === href || (href !== "/" && pathname.startsWith(href));
           return (
-            <Link
-              key={href}
-              href={href}
-              className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition-all ${
-                active
-                  ? "text-[#9B7FE8]"
-                  : "text-[rgba(155,127,232,0.5)] hover:text-[rgba(155,127,232,0.8)]"
-              }`}
-            >
-              <span
-                className={`text-xl transition-transform ${active ? "scale-110" : ""}`}
-                aria-hidden="true"
-              >
-                {icon}
-              </span>
-              <span
-                className={`text-[10px] font-body font-medium uppercase tracking-wider ${
-                  active ? "opacity-100" : "opacity-60"
-                }`}
-              >
+            <Link key={href} href={href}
+              className="flex flex-col items-center gap-1 px-4 py-1 transition-all"
+              style={{ color: active ? "var(--text-cream)" : "var(--text-muted)" }}>
+              <span className="label" style={{
+                color: active ? "#B8A060" : "rgba(168,155,126,0.4)",
+                letterSpacing: "0.15em"
+              }}>
                 {label}
               </span>
-              {active && (
-                <span className="w-1 h-1 rounded-full bg-[#9B7FE8]" />
-              )}
+              {active && <span className="w-3 h-px" style={{ background: "#B8A060" }} />}
             </Link>
           );
         })}

@@ -78,15 +78,16 @@ export default function Scanner({ onResult, onClose }: Props) {
   return (
     <div className="fixed inset-0 z-50 bg-[#0F0A1E] flex flex-col">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 bg-[rgba(15,10,30,0.9)]">
-        <h2 className="font-display text-lg text-[#F7F5FF]">Scan Clothing Tag</h2>
+      <div className="flex items-center justify-between px-6 py-4" style={{ background: "rgba(24,23,15,0.96)", borderBottom: "1px solid var(--border)" }}>
+        <h2 className="font-display text-lg" style={{ color: "var(--text-cream)", fontWeight: 300 }}>Scan Clothing Tag</h2>
         {onClose && (
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-full bg-[rgba(155,127,232,0.15)] flex items-center justify-center text-[#9B7FE8] hover:bg-[rgba(155,127,232,0.25)] transition-colors"
+            className="text-sm font-body transition-colors"
+            style={{ color: "var(--text-warm)", letterSpacing: "0.08em" }}
             aria-label="Close scanner"
           >
-            ✕
+            Close
           </button>
         )}
       </div>
@@ -95,8 +96,7 @@ export default function Scanner({ onResult, onClose }: Props) {
       <div className="flex-1 relative overflow-hidden">
         {error ? (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-6 text-center">
-            <span className="text-4xl">📷</span>
-            <p className="text-[#E84433] font-body text-sm">{error}</p>
+            <p className="text-sm font-body" style={{ color: "#A0513A" }}>{error}</p>
           </div>
         ) : (
           <>
@@ -137,10 +137,8 @@ export default function Scanner({ onResult, onClose }: Props) {
       </div>
 
       {/* Manual entry fallback */}
-      <div className="px-4 py-4 bg-[rgba(15,10,30,0.9)]">
-        <p className="text-center text-xs text-[rgba(155,127,232,0.6)] mb-3">
-          Can&apos;t scan? Enter manually
-        </p>
+      <div className="px-6 py-4" style={{ background: "rgba(24,23,15,0.96)", borderTop: "1px solid var(--border)" }}>
+        <p className="label mb-3 text-center">Or enter manually</p>
         <ManualEntry onSubmit={handleResult} />
       </div>
 
