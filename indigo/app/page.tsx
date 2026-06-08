@@ -66,11 +66,11 @@ export default function HomePage() {
         </button>
 
         <p className="text-xs font-body mt-4" style={{ color: "var(--text-muted)" }}>
-          Or search by brand name below
+          Or search any item or brand below
         </p>
 
         <div className="mt-6 max-w-sm mx-auto">
-          <BrandSearchBar placeholder="Search brands — Patagonia, Zara, Shein…" />
+          <BrandSearchBar placeholder="Search any item or brand — Nike shoes, Zara dress…" />
         </div>
       </section>
 

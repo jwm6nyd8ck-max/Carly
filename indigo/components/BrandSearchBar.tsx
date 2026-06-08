@@ -58,9 +58,16 @@ export default function BrandSearchBar({ placeholder = "Search brands…", autoF
     else router.push(`/brand/${brand.slug}`);
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!query.trim()) return;
+    setOpen(false);
+    router.push(`/search?q=${encodeURIComponent(query.trim())}`);
+  };
+
   return (
     <div ref={containerRef} className="relative w-full">
-      <div className="relative">
+      <form onSubmit={handleSubmit} className="relative">
         <input
           type="text"
           value={query}
@@ -85,7 +92,7 @@ export default function BrandSearchBar({ placeholder = "Search brands…", autoF
             ...
           </span>
         )}
-      </div>
+      </form>
 
       {open && results.length > 0 && (
         <div className="absolute top-full left-0 right-0 mt-1 z-50 overflow-hidden"
@@ -105,6 +112,14 @@ export default function BrandSearchBar({ placeholder = "Search brands…", autoF
               </button>
             );
           })}
+          <button
+            onClick={() => { setOpen(false); router.push(`/search?q=${encodeURIComponent(query.trim())}`); }}
+            className="w-full px-4 py-3 text-left text-xs font-body"
+            style={{ color: "var(--text-warm)", letterSpacing: "0.06em" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(180,160,110,0.06)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}>
+            Search &ldquo;{query}&rdquo; as item →
+          </button>
         </div>
       )}
     </div>

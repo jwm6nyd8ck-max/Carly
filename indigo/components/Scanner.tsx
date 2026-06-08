@@ -23,7 +23,7 @@ export default function Scanner({ onResult, onClose }: Props) {
       if (onResult) {
         onResult(barcode);
       } else {
-        router.push(`/api/scan?barcode=${encodeURIComponent(barcode)}`);
+        router.push(`/search?q=${encodeURIComponent(barcode)}`);
       }
     },
     [onResult, router]
@@ -167,15 +167,28 @@ function ManualEntry({ onSubmit }: { onSubmit: (value: string) => void }) {
         type="text"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        placeholder="Brand name or barcode"
-        className="flex-1 px-4 py-2.5 rounded-xl bg-[rgba(45,27,105,0.4)] border border-[rgba(155,127,232,0.2)] text-[#F7F5FF] placeholder-[#9B7FE8] font-body text-sm focus:outline-none focus:border-[#9B7FE8]"
+        placeholder="e.g. Nike Air Force 1, Zara dress…"
+        className="flex-1 px-4 py-2.5 font-body text-sm focus:outline-none"
+        style={{
+          background: "var(--bg-card)",
+          border: "1px solid var(--border)",
+          borderRadius: 4,
+          color: "var(--text-cream)",
+        }}
       />
       <button
         type="submit"
         disabled={!value.trim()}
-        className="px-5 py-2.5 rounded-xl bg-indigo-mid text-white font-body text-sm font-medium disabled:opacity-40 hover:bg-[#7B5FDF] transition-colors"
+        className="px-5 py-2.5 font-body text-sm transition-colors disabled:opacity-40"
+        style={{
+          background: "var(--bg-raised)",
+          border: "1px solid rgba(180,160,110,0.3)",
+          borderRadius: 4,
+          color: "var(--text-cream)",
+          letterSpacing: "0.06em",
+        }}
       >
-        Go
+        Search
       </button>
     </form>
   );
